@@ -24,6 +24,7 @@
 \usepackage{algorithmic}
 \urlstyle{same}
 
+
 % the following package is optional:
 %\usepackage{latexsym}
 
@@ -59,7 +60,8 @@
 /TemplateVersion (IJCAI.2021.0)
 }
 
-\title{IJCAI--21 Formatting Instructions}
+\title{Utilização de Métodos de Aprendizado de Máquina na Classificação de Imagens para
+Reconhecimento de Lixo Orgânico ou Reciclável}
 
 % Single author syntax
 \author{
@@ -93,12 +95,22 @@ $^4$UFSJ
 
 \maketitle
 
+%%%% Tópicos que o artigo deve conter %%%%%%%
+%Título relacionado ao tema do trabalho e identificação dos autores. 
+%− Introdução:  que  descreva  o  problema  de  aprendizado  de  máquina,  visões,  etapas  e 
+%diferentes abordagens. 
+%− Fundamentação teórica: que forneça base sobre aprendizado supervisionado, os 
+%algoritmos  envolvidos  nos  experimentos  e  suas  características  específicas  (quando  são 
+%adequados, quando não são, vantagens e desvantagens); 
+%− Desenvolvimento  do  trabalho  e  análise  de  resultados:  explique  sobre  a  base  utilizada,  a 
+%escolha dos atributos e apresente os resultados obtidos pelos classificadores, comparando 
+%os  algoritmos  e  destacando  as  características  individuais  de  cada  um  que  podem  ter 
+%influenciado nos resultados. 
+%− Finalmente, as conclusões e referências
+
 
 % Comparação de algoritmos de AM na tarefa de classificar 
 % imagens de lixo ôrganico ou reciclável
-%
-%
-%
 \begin{abstract}
   The {\it IJCAI--21 Proceedings} will be printed from electronic
   manuscripts submitted by the authors. The electronic manuscript will
@@ -108,32 +120,171 @@ $^4$UFSJ
 
 \section{Introduction}
 
-The {\it IJCAI--21 Proceedings} will be printed from electronic
-manuscripts submitted by the authors. These must be PDF ({\em Portable
-Document Format}) files formatted for 8-1/2$''$ $\times$ 11$''$ paper.
+Introdução sobre o problema e citar classificação de imagens e os algorimtos que iremos usar
 
-\subsection{Length of Papers}
+\section{Fundamentação Teórica}
 
-All paper {\em submissions} must have a maximum of six pages, plus at most one for references. The seventh page cannot contain {\bf anything} other than references.
+\subsection{Classificação de Imagens}
+%breve levantamento sobre e como funciona o algoritmo
+A classificação de imagens é o processo de categorizar e rotular vetores em uma imagem (grupos de pixels) com base em regras específicas, as quais podem se basear em uma ou mais características espectrais, ou texturais. A classificação pode ser feita através de dois métodos gerais os "supervisionados" e "não supervisionados". %Neste trabalho é utilizado o método supervisionado
 
-The length rules may change for final camera-ready versions of accepted papers and will differ between tracks. Some tracks may include only references in the last page, whereas others allow for any content in all pages. Similarly, some tracks allow you to buy a few extra pages should you want to, whereas others don't.
+\subsubsection{Classificação Não Supervisionada}
 
-If your paper is accepted, please carefully read the notifications you receive, and check the proceedings submission information website\footnote{\url{https://proceedings.ijcai.org/info}} to know how many pages you can finally use. That website holds the most up-to-date information regarding paper length limits at all times. Please notice that if your track allows for a special references-only page, the {\bf references-only page(s) cannot contain anything else than references} (i.e.: do not write your acknowledgments on that page or you will be charged for it).
+O método não supervisionado é totalmente automatizado sem o uso de dados de treinamento. Utilizando um algoritmo adequado, as características especificadas de uma imagem são detectadas sistematicamente durante o estágio de processamento da imagem. Estes métodos descrevem um modelo de ‘agrupamento de imagens’ ou ‘reconhecimento de padrões’, os algoritmos ‘ISODATA’ e ‘K-mean’ são comumente utilizados.
 
-\subsection{Word Processing Software}
+\subsubsection{Classificação Supervisionada}
 
-As detailed below, IJCAI has prepared and made available a set of
-\LaTeX{} macros and a Microsoft Word template for use in formatting
-your paper. If you are using some other word processing software, please follow the format instructions given below and ensure that your final paper looks as much like this sample as possible.
+O método supervisionado é o processo de selecionar amostras visualmente nas imagens dos dados de treinamento e atribuí-las a categorias pré-selecionadas dependendo da base de dados utilizada, essas categorias podem ser, por exemplo estradas, edifícios, corpo d'água, vegetação e entre outras, de modo a criar medidas estatísticas a serem aplicadas à imagem inteira. 
 
-\section{Style and Format}
+'Máxima verossimilhança' e 'distância mínima' são dois métodos comuns para categorizar a imagem inteira usando os dados de treinamento. Por exemplo, a classificação de 'probabilidade máxima' usa as características estatísticas dos dados, onde os valores de média e desvio padrão de cada índice espectral e textural da imagem são calculados primeiro. Então, considerando uma distribuição normal para os pixels em cada classe e usando algumas estatísticas clássicas e relações probabilísticas, a probabilidade de cada pixel pertencer a classes individuais é calculada. Finalmente, os pixels são rotulados para uma classe de recursos que mostram a maior probabilidade
 
-\LaTeX{} and Word style files that implement these instructions
-can be retrieved electronically. (See Appendix~\ref{stylefiles} for
-instructions on how to obtain these files.)
+\subsection{SVM}
+%breve levantamento sobre e como funciona o algoritmo
+Uma máquina de vetores de suporte (SVM, do inglês: support vector machine) é um conceito na ciência da computação para um conjunto de métodos de aprendizado supervisionado que analisam os dados e reconhecem padrões, usado para classificação e análise de regressão. O SVM padrão toma como entrada um conjunto de dados e prediz, para cada entrada dada, qual de duas possíveis classes a entrada faz parte, o que faz do SVM um classificador linear binário não probabilístico. 
 
-\subsection{Layout}
+Dados um conjunto de exemplos de treinamento, cada um marcado como pertencente a uma de duas categorias, um algoritmo de treinamento do SVM constrói um modelo que atribui novos exemplos a uma categoria ou outra. Um modelo SVM é uma representação de exemplos como pontos no espaço, mapeados de maneira que os exemplos de cada categoria sejam divididos por um espaço claro que seja tão amplo quanto possível. Os novos exemplos são então mapeados no mesmo espaço e preditos como pertencentes a uma categoria baseados em qual o lado do espaço eles são colocados.
 
+Em outras palavras, o que uma SVM faz é encontrar uma linha de separação, mais comumente chamada de hiperplano entre dados de duas classes. Essa linha busca maximizar a distância entre os pontos mais próximos em relação a cada uma das classes. Essa distância entre o hiperplano e o primeiro ponto de cada classe costuma ser chamada de margem. A SVM coloca em primeiro lugar a classificação das classes, definindo assim cada ponto pertencente a cada uma das classes, e em seguida maximiza a margem. Ou seja, ela primeiro classifica as classes corretamente e depois em função dessa restrição define a distância entre as margens.
+
+Algumas características:
+
+-> Em caso de outlier a SVM busca a melhor forma possível de classificação e, se necessário, desconsidera o outlier;
+-> Funciona muito bem em domínios complicados, em que existe uma clara margem de separação;
+-> Não funciona bem em conjuntos de dados muito grandes, pois exige inversão de matriz - aumentando a complexidade computacional com até o cubo do volume de dados;
+-> Não funciona bem em conjunto de dados com grande quantidade de ruídos;
+-> Se as classes estiverem muito sobrepostas deve-se utilizar apenas evidências independentes (devido ao fato de não ser muito bom com dados com muitos ruídos);
+
+\subsection{Àvore de Decisão}
+%breve levantamento sobre e como funciona o algoritmo
+O aprendizado de árvore de decisão ou indução de árvores de decisão é uma das abordagens de modelagem preditiva usadas em estatística, mineração de dados e aprendizado de máquina. Ele usa uma árvore de decisão (como um modelo preditivo) para ir de observações sobre um item (representado nos ramos) para conclusões sobre o valor alvo do item (representado nas folhas). Os modelos de árvore em que a variável de destino pode assumir um conjunto discreto de valores são chamados de árvores de classificação; nessas estruturas de árvore, as folhas representam rótulos de classe e os ramos representam conjunções de recursos que levam a esses rótulos de classe. As árvores de decisão em que a variável de destino pode assumir valores contínuos (normalmente números reais) são chamadas de árvores de regressão. As árvores de decisão estão entre os algoritmos de aprendizado de máquina mais populares devido à sua inteligibilidade e simplicidade. [1]
+
+Na análise de decisão, uma árvore de decisão pode ser usada para representar visualmente e explicitamente as decisões e a tomada de decisão.
+
+
+O aprendizado da árvore de decisão é um método comumente usado na mineração de dados. [2] O objetivo é criar um modelo que preveja o valor de uma variável de destino com base em várias variáveis de entrada.
+
+Uma árvore de decisão é uma representação simples para classificar exemplos. Para esta seção, suponha que todos os recursos de entrada tenham domínios discretos finitos e que haja um único recurso de destino denominado "classificação". Cada elemento do domínio da classificação é denominado classe. Uma árvore de decisão ou uma árvore de classificação é uma árvore na qual cada nó interno (não folha) é rotulado com um recurso de entrada. Os arcos vindos de um nó rotulado com um recurso de entrada são rotulados com cada um dos valores possíveis do recurso de destino ou o arco leva a um nó de decisão subordinado em um recurso de entrada diferente. Cada folha da árvore é rotulada com uma classe ou uma distribuição de probabilidade sobre as classes, significando que o conjunto de dados foi classificado pela árvore em uma classe específica ou em uma distribuição de probabilidade particular (que, se a árvore de decisão estiver bem -construída, é inclinada para certos subconjuntos de classes).
+
+Uma árvore é construída dividindo o conjunto de origem, constituindo o nó raiz da árvore, em subconjuntos - que constituem os filhos sucessores. A divisão é baseada em um conjunto de regras de divisão baseadas em características de classificação. [3] Este processo é repetido em cada subconjunto derivado de uma maneira recursiva chamada particionamento recursivo. A recursão é concluída quando o subconjunto em um nó tem todos os mesmos valores da variável de destino ou quando a divisão não agrega mais valor às previsões. Este processo de indução top-down de árvores de decisão (TDIDT) [4] é um exemplo de um algoritmo guloso, e é de longe a estratégia mais comum para aprender árvores de decisão a partir de dados. [Carece de fontes?
+
+Na mineração de dados, as árvores de decisão também podem ser descritas como a combinação de técnicas matemáticas e computacionais para auxiliar na descrição, categorização e generalização de um determinado conjunto de dados.
+
+Tipos de árvore de decisão
+
+As árvores de decisão usadas na mineração de dados são de dois tipos principais:
+
+    A análise da árvore de classificação é quando o resultado previsto é a classe (discreta) à qual os dados pertencem.
+    A análise da árvore de regressão é quando o resultado previsto pode ser considerado um número real (por exemplo, o preço de uma casa ou o tempo de permanência de um paciente em um hospital).
+
+O termo análise de árvore de classificação e regressão (CART) é um termo abrangente usado para se referir a ambos os procedimentos acima, introduzidos pela primeira vez por Breiman et al. em 1984. [5] Árvores usadas para regressão e árvores usadas para classificação têm algumas semelhanças - mas também algumas diferenças, como o procedimento usado para determinar onde dividir. [5]
+
+Algumas técnicas, muitas vezes chamadas de métodos de conjunto, constroem mais de uma árvore de decisão:
+
+    Árvores impulsionadas Construindo incrementalmente um conjunto treinando cada nova instância para enfatizar as instâncias de treinamento previamente modeladas incorretamente. Um exemplo típico é AdaBoost. Eles podem ser usados para problemas do tipo regressão e do tipo classificação. [6] [7]
+    Árvores de decisão agregadas (ou ensacadas) de bootstrap, um método de conjunto inicial, constrói várias árvores de decisão ao reamostrar repetidamente os dados de treinamento com substituição e votar nas árvores para uma previsão de consenso. [8]
+        Um classificador de floresta aleatório é um tipo específico de agregação de bootstrap
+    Floresta de rotação - na qual cada árvore de decisão é treinada aplicando primeiro a análise de componentes principais (PCA) em um subconjunto aleatório dos recursos de entrada. [9]
+
+Um caso especial de árvore de decisão é uma lista de decisão, [10] que é uma árvore de decisão unilateral, de modo que cada nó interno tem exatamente 1 nó folha e exatamente 1 nó interno como filho (exceto para o nó inferior, cujo único filho é um único nó folha). Embora menos expressivas, as listas de decisão são indiscutivelmente mais fáceis de entender do que as árvores de decisão gerais devido à sua esparsidade adicional, permitindo que métodos de aprendizagem não gananciosos [11] e restrições monotônicas sejam impostas. [12]
+
+\subsection{KNN}
+% breve levantamento sobre e como funciona o algoritmo
+
+Em estatística, o algoritmo de k vizinhos mais próximos (k-NN) é um método de classificação não paramétrico desenvolvido pela primeira vez por Evelyn Fix e Joseph Hodges em 1951 e posteriormente expandido por Thomas Cover. É usado para classificação e regressão. Em ambos os casos, a entrada consiste nos k exemplos de treinamento mais próximos no conjunto de dados. A saída depende se k-NN é usado para classificação ou regressão:
+
+Na classificação k-NN, a saída é uma associação de classe. Um objeto é classificado por uma pluralidade de votos de seus vizinhos, com o objeto sendo atribuído à classe mais comum entre seus k vizinhos mais próximos (k é um número inteiro positivo, tipicamente pequeno). Se k = 1, então o objeto é simplesmente atribuído à classe daquele único vizinho mais próximo. Na regressão k-NN, a saída é o valor da propriedade do objeto. Este valor é a média dos valores dos k vizinhos mais próximos.
+
+k-NN é um tipo de classificação onde a função é aproximada apenas localmente e todos os cálculos são adiados até a avaliação da função. Uma vez que este algoritmo depende da distância para classificação, se os recursos representam unidades físicas diferentes ou vêm em escalas muito diferentes, então normalizar os dados de treinamento pode melhorar sua precisão drasticamente.
+
+Tanto para classificação quanto para regressão, uma técnica útil pode ser atribuir pesos às contribuições dos vizinhos, de modo que os vizinhos mais próximos contribuam mais para a média do que os mais distantes. Por exemplo, um esquema de ponderação comum consiste em dar a cada vizinho um peso de 1/d, onde d é a distância ao vizinho.
+
+Os vizinhos são obtidos de um conjunto de objetos para os quais a classe (para classificação k-NN) ou o valor da propriedade do objeto (para regressão k-NN) é conhecido. Isso pode ser considerado o conjunto de treinamento para o algoritmo, embora nenhuma etapa de treinamento explícita seja necessária.
+
+Uma peculiaridade do algoritmo k-NN é que ele é sensível à estrutura local dos dados.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr}
+\toprule
+Scenario  & $\delta$ (s) & Runtime (ms) \\
+\midrule
+Paris       & 0.1  & 13.65      \\
+            & 0.2  & 0.01       \\
+New York    & 0.1  & 92.50      \\
+Singapore   & 0.1  & 33.33      \\
+            & 0.2  & 23.01      \\
+\bottomrule
+\end{tabular}
+\caption{Booktabs table}
+\label{tab:booktabs}
+\end{table}
+
+\subsection{Artificial Neural Networks}
+%breve levantamento sobre e como funciona o algoritmo
+
+Em ciência da computação e campos relacionados, redes neurais artificiais ou redes neuronais artificiais são modelos computacionais inspirados pelo sistema nervoso central de um animal (em particular o cérebro) que são capazes de realizar o aprendizado de máquina bem como o reconhecimento de padrões. 
+
+Redes neurais artificiais geralmente são apresentadas como sistemas de "neurônios interconectados, que podem computar valores de entradas", simulando o comportamento de redes neurais biológicas.
+
+Por exemplo, uma rede neural para o reconhecimento de escrita manual é definida por um conjunto de neurônios de entrada que podem ser ativados pelos pixels de uma imagem de entrada. Os dados adquiridos por essa ativação dos neurônios são então repassados, ponderados e transformados por uma função determinada pelo designer da rede, a outros neurônios. Este processo é repetido até que, finalmente, um neurônio de saída é ativado. Isso determina que caractere foi lido.
+
+Assim como outros métodos de aprendizado de máquina, sistemas que aprendem a partir dos dados, redes neurais têm sido usadas para resolver uma grande variedade de tarefas que são difíceis de resolver utilizando programação baseada em regras comuns, incluindo visão computacional e reconhecimento de voz.
+
+A inspiração original para essa técnica advém do exame das estruturas do cérebro, em particular do exame de neurônios. A propriedade mais importante das redes neurais é a habilidade de aprender de seu ambiente e com isso melhorar seu desempenho. Isso é feito através de um processo iterativo de ajustes aplicado aos seus pesos, o treino.
+
+A aprendizagem ocorre quando a rede neural atinge uma solução generalizada para uma classe de problemas.
+
+Denomina-se algoritmo de aprendizagem a um conjunto de regras bem definidas para a solução de um problema de aprendizagem. Outro fator importante é a maneira pela qual uma rede neural se relaciona com o ambiente. Nesse contexto existem os seguintes paradigmas de aprendizagem:
+
+Aprendizagem Supervisionada, quando é utilizado um agente externo que indica à rede a resposta desejada para o padrão de entrada, Aprendizagem Não Supervisionada (auto-organização), quando não existe uma agente externo indicando a resposta desejada para os padrões de entrada, e Aprendizagem por Reforço, quando um crítico externo avalia a resposta fornecida pela rede.
+
+\begin{algorithm}[tb]
+\caption{Example algorithm}
+\label{alg:algorithm}
+\textbf{Input}: Your algorithm's input\\
+\textbf{Parameter}: Optional list of parameters\\
+\textbf{Output}: Your algorithm's output
+\begin{algorithmic}[1] %[1] enables line numbers
+\STATE Let $t=0$.
+\WHILE{condition}
+\STATE Do some action.
+\IF {conditional}
+\STATE Perform task A.
+\ELSE
+\STATE Perform task B.
+\ENDIF
+\ENDWHILE
+\STATE \textbf{return} solution
+\end{algorithmic}
+\end{algorithm}
+
+% talvez entre \subsection{CNN}
+
+\section{Desenvolvimento}
+como foi implementado, linguagens programas e 
+métodos utilizados na pesquisa
+
+\section{Análise de Resultados}
+    tabela de resultados e ambiente de testes 
+    
+\begin{table}[h]
+\centering
+\begin{tabular}{lrr}
+\toprule
+Scenario  & $\delta$ (s) & Runtime (ms) \\
+\midrule
+Paris       & 0.1  & 13.65      \\
+            & 0.2  & 0.01       \\
+New York    & 0.1  & 92.50      \\
+Singapore   & 0.1  & 33.33      \\
+            & 0.2  & 23.01      \\
+\bottomrule
+\end{tabular}
+\caption{Booktabs table}
+\label{tab:booktabs}
+\end{table}
+    
+    
 Print manuscripts two columns to a page, in the manner in which these
 instructions are printed. The exact dimensions for pages are:
 \begin{itemize}
@@ -147,130 +298,6 @@ instructions are printed. The exact dimensions for pages are:
 \item column height---other pages: 9$''$
 \end{itemize}
 
-All measurements assume an 8-1/2$''$ $\times$ 11$''$ page size. For
-A4-size paper, use the given top and left margins, column width,
-height, and gap, and modify the bottom and right margins as necessary.
-
-\subsection{Format of Electronic Manuscript}
-
-For the production of the electronic manuscript, you must use Adobe's
-{\em Portable Document Format} (PDF). A PDF file can be generated, for
-instance, on Unix systems using {\tt ps2pdf} or on Windows systems
-using Adobe's Distiller. There is also a website with free software
-and conversion services: \url{http://www.ps2pdf.com}. For reasons of
-uniformity, use of Adobe's {\em Times Roman} font is strongly suggested.
-In \LaTeX2e{} this is accomplished by writing
-\begin{quote}
-\mbox{\tt $\backslash$usepackage\{times\}}
-\end{quote}
-in the preamble.\footnote{You may want also to use the package {\tt
-latexsym}, which defines all symbols known from the old \LaTeX{}
-version.}
-
-Additionally, it is of utmost importance to specify the {\bf
-letter} format (corresponding to 8-1/2$''$ $\times$ 11$''$) when
-formatting the paper. When working with {\tt dvips}, for instance, one
-should specify {\tt -t letter}.
-
-\subsection{Title and Author Information}
-
-Center the title on the entire width of the page in a 14-point bold
-font. The title must be capitalized using Title Case. Below it, center author name(s) in 12-point bold font. On the following line(s) place the affiliations, each affiliation on its own line using 12-point regular font. Matching between authors and affiliations can be done using numeric superindices. Optionally, a comma-separated list of email addresses follows the affiliation(s) line(s), using 12-point regular font.
-
-\subsubsection{Blind Review}
-
-In order to make blind reviewing possible, authors must omit their
-names and affiliations when submitting the paper for review. In place
-of names and affiliations, provide a list of content areas. When
-referring to one's own work, use the third person rather than the
-first person. For example, say, ``Previously,
-Gottlob~\shortcite{gottlob:nonmon} has shown that\ldots'', rather
-than, ``In our previous work~\cite{gottlob:nonmon}, we have shown
-that\ldots'' Try to avoid including any information in the body of the
-paper or references that would identify the authors or their
-institutions. Such information can be added to the final camera-ready
-version for publication.
-
-\subsection{Abstract}
-
-Place the abstract at the beginning of the first column 3$''$ from the
-top of the page, unless that does not leave enough room for the title
-and author information. Use a slightly smaller width than in the body
-of the paper. Head the abstract with ``Abstract'' centered above the
-body of the abstract in a 12-point bold font. The body of the abstract
-should be in the same font as the body of the paper.
-
-The abstract should be a concise, one-paragraph summary describing the
-general thesis and conclusion of your paper. A reader should be able
-to learn the purpose of the paper and the reason for its importance
-from the abstract. The abstract should be no more than 200 words long.
-
-\subsection{Text}
-
-The main body of the text immediately follows the abstract. Use
-10-point type in a clear, readable font with 1-point leading (10 on
-11).
-
-Indent when starting a new paragraph, except after major headings.
-
-\subsection{Headings and Sections}
-
-When necessary, headings should be used to separate major sections of
-your paper. (These instructions use many headings to demonstrate their
-appearance; your paper should have fewer headings.). All headings should be capitalized using Title Case.
-
-\subsubsection{Section Headings}
-
-Print section headings in 12-point bold type in the style shown in
-these instructions. Leave a blank space of approximately 10 points
-above and 4 points below section headings.  Number sections with
-arabic numerals.
-
-\subsubsection{Subsection Headings}
-
-Print subsection headings in 11-point bold type. Leave a blank space
-of approximately 8 points above and 3 points below subsection
-headings. Number subsections with the section number and the
-subsection number (in arabic numerals) separated by a
-period.
-
-\subsubsection{Subsubsection Headings}
-
-Print subsubsection headings in 10-point bold type. Leave a blank
-space of approximately 6 points above subsubsection headings. Do not
-number subsubsections.
-
-\paragraph{Titled paragraphs.} You should use titled paragraphs if and
-only if the title covers exactly one paragraph. Such paragraphs should be
-separated from the preceding content by at least 3pt, and no more than
-6pt. The title should be in 10pt bold font and ended with a period.
-After that, a 1em horizontal space should follow the title before
-the paragraph's text.
-
-In \LaTeX{} titled paragraphs should be typeset using
-\begin{quote}
-{\tt \textbackslash{}paragraph\{Title.\} text} .
-\end{quote}
-
-\subsubsection{Acknowledgements}
-
-You may include an unnumbered acknowledgments section, including
-acknowledgments of help from colleagues, financial support, and
-permission to publish. If present, acknowledgements must be in a dedicated,
-unnumbered section appearing after all regular sections but before any
-appendices or references.
-
-Use
-\begin{quote}
-    {\tt \textbackslash{}section*\{Acknowledgements\}})
-\end{quote}
-to typeset the acknowledgements section in \LaTeX{}.
-
-\subsubsection{Appendices}
-
-Any appendices directly follow the text and look like sections, except
-that they are numbered with capital letters instead of arabic
-numerals. See this document for an example.
 
 \subsubsection{References}
 
@@ -299,223 +326,8 @@ follows:~\cite{gls:hypertrees,levesque:functional-foundations}.
 \nocite{levesque:belief}
 \nocite{nebel:jair-2000}
 
-\subsection{Footnotes}
-
-Place footnotes at the bottom of the page in a 9-point font.  Refer to
-them with superscript numbers.\footnote{This is how your footnotes
-should appear.} Separate them from the text by a short
-line.\footnote{Note the line separating these footnotes from the
-text.} Avoid footnotes as much as possible; they interrupt the flow of
-the text.
-
-\section{Illustrations}
-
-Place all illustrations (figures, drawings, tables, and photographs)
-throughout the paper at the places where they are first discussed,
-rather than at the end of the paper.
-
-They should be floated to the top (preferred) or bottom of the page,
-unless they are an integral part
-of your narrative flow. When placed at the bottom or top of
-a page, illustrations may run across both columns, but not when they
-appear inline.
-
-Illustrations must be rendered electronically or scanned and placed
-directly in your document. They should be cropped outside latex, otherwise portions of the image could reappear during the post-processing of your paper. All illustrations should be understandable when printed in black and
-white, albeit you can use colors to enhance them. Line weights should
-be 1/2-point or thicker. Avoid screens and superimposing type on
-patterns, as these effects may not reproduce well.
-
-Number illustrations sequentially. Use references of the following
-form: Figure 1, Table 2, etc. Place illustration numbers and captions
-under illustrations. Leave a margin of 1/4-inch around the area
-covered by the illustration and caption.  Use 9-point type for
-captions, labels, and other text in illustrations. Captions should always appear below the illustration.
-
-\section{Tables}
-
-Tables are considered illustrations containing data. Therefore, they should also appear floated to the top (preferably) or bottom of the page, and with the captions below them.
-
-\begin{table}
-\centering
-\begin{tabular}{lll}
-\hline
-Scenario  & $\delta$ & Runtime \\
-\hline
-Paris       & 0.1s  & 13.65ms     \\
-Paris       & 0.2s  & 0.01ms      \\
-New York    & 0.1s  & 92.50ms     \\
-Singapore   & 0.1s  & 33.33ms     \\
-Singapore   & 0.2s  & 23.01ms     \\
-\hline
-\end{tabular}
-\caption{Latex default table}
-\label{tab:plain}
-\end{table}
-
-\begin{table}
-\centering
-\begin{tabular}{lrr}
-\toprule
-Scenario  & $\delta$ (s) & Runtime (ms) \\
-\midrule
-Paris       & 0.1  & 13.65      \\
-            & 0.2  & 0.01       \\
-New York    & 0.1  & 92.50      \\
-Singapore   & 0.1  & 33.33      \\
-            & 0.2  & 23.01      \\
-\bottomrule
-\end{tabular}
-\caption{Booktabs table}
-\label{tab:booktabs}
-\end{table}
-
-If you are using \LaTeX, you should use the {\tt booktabs} package, because it produces better tables than the standard ones. Compare Tables \ref{tab:plain} and~\ref{tab:booktabs}. The latter is clearly more readable for three reasons:
-
-\begin{enumerate}
-    \item The styling is better thanks to using the {\tt booktabs} rulers instead of the default ones.
-    \item Numeric columns are right-aligned, making it easier to compare the numbers. Make sure to also right-align the corresponding headers, and to use the same precision for all numbers.
-    \item We avoid unnecessary repetition, both between lines (no need to repeat the scenario name in this case) as well as in the content (units can be shown in the column header).
-\end{enumerate}
-
-\section{Formulas}
-
-IJCAI's two-column format makes it difficult to typeset long formulas. A usual temptation is to reduce the size of the formula by using the {\tt small} or {\tt tiny} sizes. This doesn't work correctly with the current \LaTeX{} versions, breaking the line spacing of the preceding paragraphs and title, as well as the equation number sizes. The following equation demonstrates the effects (notice that this entire paragraph looks badly formatted):
-%
-\begin{tiny}
-\begin{equation}
-    x = \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i
-\end{equation}
-\end{tiny}%
-
-Reducing formula sizes this way is strictly forbidden. We {\bf strongly} recommend authors to split formulas in multiple lines when they don't fit in a single line. This is the easiest approach to typeset those formulas and provides the most readable output%
-%
-\begin{align}
-    x =& \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \nonumber\\
-    + & \prod_{i=1}^n \sum_{j=1}^n j_i
-\end{align}%
-
-If a line is just slightly longer than the column width, you may use the {\tt resizebox} environment on that equation. The result looks better and doesn't interfere with the paragraph's line spacing: %
-\begin{equation}
-\resizebox{.91\linewidth}{!}{$
-    \displaystyle
-    x = \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i
-$}
-\end{equation}%
-
-This last solution may have to be adapted if you use different equation environments, but it can generally be made to work. Please notice that in any case:
-
-\begin{itemize}
-    \item Equation numbers must be in the same font and size than the main text (10pt).
-    \item Your formula's main symbols should not be smaller than {\small small} text (9pt).
-\end{itemize}
-
-For instance, the formula
-%
-\begin{equation}
-    \resizebox{.91\linewidth}{!}{$
-    \displaystyle
-    x = \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j + \prod_{i=1}^n \sum_{j=1}^n j_i + \prod_{i=1}^n \sum_{j=1}^n i_j
-$}
-\end{equation}
-%
-would not be acceptable because the text is too small.
-
-\section{Examples, Definitions, Theorems and Similar}
-
-Examples, definitions, theorems, corollaries and similar must be written in their own paragraph. The paragraph must be separated by at least 2pt and no more than 5pt from the preceding and succeeding paragraphs. They must begin with the kind of item written in 10pt bold font followed by their number (e.g.: Theorem 1), optionally followed by a title/summary between parentheses in non-bold font and ended with a period. After that the main body of the item follows, written in 10 pt italics font (see below for examples).
-
-In \LaTeX{} We strongly recommend you to define environments for your examples, definitions, propositions, lemmas, corollaries and similar. This can be done in your \LaTeX{} preamble using \texttt{\textbackslash{newtheorem}} -- see the source of this document for examples. Numbering for these items must be global, not per-section (e.g.: Theorem 1 instead of Theorem 6.1).
-
-\begin{example}[How to write an example]
-Examples should be written using the example environment defined in this template.
-\end{example}
-
-\begin{theorem}
-This is an example of an untitled theorem.
-\end{theorem}
-
-You may also include a title or description using these environments as shown in the following theorem.
-
-\begin{theorem}[A titled theorem]
-This is an example of a titled theorem.
-\end{theorem}
-
-\section{Proofs}
-
-Proofs must be written in their own paragraph separated by at least 2pt and no more than 5pt from the preceding and succeeding paragraphs. Proof paragraphs should start with the keyword ``Proof." in 10pt italics font. After that the proof follows in regular 10pt font. At the end of the proof, an unfilled square symbol (qed) marks the end of the proof.
-
-In \LaTeX{} proofs should be typeset using the \texttt{\textbackslash{proof}} environment.
-
-\begin{proof}
-This paragraph is an example of how a proof looks like using the \texttt{\textbackslash{proof}} environment.
-\end{proof}
 
 
-\section{Algorithms and Listings}
-
-Algorithms and listings are a special kind of figures. Like all illustrations, they should appear floated to the top (preferably) or bottom of the page. However, their caption should appear in the header, left-justified and enclosed between horizontal lines, as shown in Algorithm~\ref{alg:algorithm}. The algorithm body should be terminated with another horizontal line. It is up to the authors to decide whether to show line numbers or not, how to format comments, etc.
-
-In \LaTeX{} algorithms may be typeset using the {\tt algorithm} and {\tt algorithmic} packages, but you can also use one of the many other packages for the task.
-
-\begin{algorithm}[tb]
-\caption{Example algorithm}
-\label{alg:algorithm}
-\textbf{Input}: Your algorithm's input\\
-\textbf{Parameter}: Optional list of parameters\\
-\textbf{Output}: Your algorithm's output
-\begin{algorithmic}[1] %[1] enables line numbers
-\STATE Let $t=0$.
-\WHILE{condition}
-\STATE Do some action.
-\IF {conditional}
-\STATE Perform task A.
-\ELSE
-\STATE Perform task B.
-\ENDIF
-\ENDWHILE
-\STATE \textbf{return} solution
-\end{algorithmic}
-\end{algorithm}
-
-\section*{Acknowledgments}
-
-The preparation of these instructions and the \LaTeX{} and Bib\TeX{}
-files that implement them was supported by Schlumberger Palo Alto
-Research, AT\&T Bell Laboratories, and Morgan Kaufmann Publishers.
-Preparation of the Microsoft Word file was supported by IJCAI.  An
-early version of this document was created by Shirley Jowell and Peter
-F. Patel-Schneider.  It was subsequently modified by Jennifer
-Ballentine and Thomas Dean, Bernhard Nebel, Daniel Pagenstecher,
-Kurt Steinkraus, Toby Walsh and Carles Sierra. The current version
-has been prepared by Marc Pujol-Gonzalez and Francisco Cruz-Mencia.
-
-\appendix
-
-\section{\LaTeX{} and Word Style Files}\label{stylefiles}
-
-The \LaTeX{} and Word style files are available on the IJCAI--21
-website, \url{https://www.ijcai21.org/}.
-These style files implement the formatting instructions in this
-document.
-
-The \LaTeX{} files are {\tt ijcai21.sty} and {\tt ijcai21.tex}, and
-the Bib\TeX{} files are {\tt named.bst} and {\tt ijcai21.bib}. The
-\LaTeX{} style file is for version 2e of \LaTeX{}, and the Bib\TeX{}
-style file is for version 0.99c of Bib\TeX{} ({\em not} version
-0.98i). The {\tt ijcai21.sty} style differs from the {\tt
-ijcai20.sty} file used for IJCAI--PRICAI--20.
-
-The Microsoft Word style file consists of a single file, {\tt
-ijcai21.doc}. This template differs from the one used for
-IJCAI--PRICAI--20.
-
-These Microsoft Word and \LaTeX{} files contain the source of the
-present document and may serve as a formatting sample.
-
-Further information on using these styles for the preparation of
-papers for IJCAI--21 can be obtained by contacting {\tt
-pcchair@ijcai-21.org}.
 
 %% The file named.bst is a bibliography style file for BibTeX 0.99c
 \bibliographystyle{named}
