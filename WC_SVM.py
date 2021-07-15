@@ -3,20 +3,14 @@ import numpy as np
 import cv2
 import tqdm
 import random
-#import tensorflow as tf
-from sklearn.metrics import confusion_matrix
-from sklearn.utils import shuffle
 
 from sklearn.svm import SVC
-#from sklearn.model_selection import GridSearchCV
+from sklearn.utils import shuffle
+
 from sklearn.model_selection import cross_val_score
 from sklearn.metrics import classification_report, confusion_matrix
-from sklearn import metrics
-#from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
-#from sklearn.model_selection import cross_val_score
 
-from sklearn import svm
+
 
 
 # Setting the image size, epochs, classes and batch size
@@ -104,5 +98,5 @@ print(f'\nAccuracy Score Confusion Matrix (SVM): {(cm.trace()/cm.sum())*100}%')
 print('\nClassification report: ')
 print(classification_report(test_labels, y_pred))
 
-scores = cross_val_score(model, train_images, train_labels, cv=10)
+scores = cross_val_score(classifier, train_images, train_labels, cv=10)
 print(f'Cross-validation score: {scores.mean()}')

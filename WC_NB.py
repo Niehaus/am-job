@@ -3,31 +3,10 @@ import numpy as np
 import cv2
 import tqdm
 import random
-#from tensorflow.keras.layers import Conv2D,MaxPool2D,Flatten,Dense
-#from tensorflow.keras.models import Sequential
-from sklearn.metrics import confusion_matrix
+
 from sklearn.utils import shuffle
-
-#from sklearn.svm import SVC
-#from sklearn.model_selection import GridSearchCV
-#from sklearn.model_selection import cross_val_score
 from sklearn.metrics import classification_report, confusion_matrix
-from sklearn import metrics
-#from sklearn.model_selection import train_test_split
-#from sklearn import svm
-#from sklearn.model_selection import GridSearchCV
-#from sklearn.metrics import accuracy_score
-
-#from sklearn.model_selection import cross_val_score
-
-from sklearn.metrics import accuracy_score
 from sklearn.model_selection import cross_val_score
-#from sklearn.neighbors import KNeighborsClassifier
-from sklearn.tree import DecisionTreeClassifier
-from sklearn import tree
-
-#from sklearn import svm
-
 from sklearn.preprocessing import StandardScaler
 from sklearn.naive_bayes import GaussianNB
 import seaborn as sns
