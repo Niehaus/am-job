@@ -16,12 +16,12 @@ from sklearn.metrics import classification_report, confusion_matrix
 from sklearn.model_selection import cross_val_score
 from sklearn import tree
 from utils.utils import load_data
+import time
 
 
 # ### Pré-processamento das Imagens
 
 # In[3]:
-
 
 # Loading the training and testing data
 # print("Pre-processing...")
@@ -50,8 +50,11 @@ train_images, train_labels = shuffle(train_images, train_labels)
 #print("Evaluating DT...")
 classifier = tree.DecisionTreeClassifier(criterion='entropy', splitter='best', max_depth=None)
 
+start = time.time()
 # print("Fitting...")
 classifier.fit(train_images, train_labels)
+end = time.time()
+print(f'Tempo arvore de decição: {end - start}')
 
 # print("Predicting...")
 y_pred = classifier.predict(test_images)
@@ -60,7 +63,7 @@ y_pred = classifier.predict(test_images)
 
 # Using the confusion matrix to print the accuracy of those predictions
 cm = confusion_matrix(y_true=test_labels, y_pred=np.round(y_pred))
-# print(f'\nAccuracy Score Confusion Matrix (DT): {(cm.trace() / cm.sum()) * 100}%')
+print(f'\nAccuracy Score Confusion Matrix (DT): {(cm.trace() / cm.sum()) * 100}%')
 
 # print('\nClassification Report:')
 # print(classification_report(test_labels, y_pred))
@@ -86,8 +89,11 @@ from sklearn.neighbors import KNeighborsClassifier
 #print("Evaluating KNN...")
 model = KNeighborsClassifier(n_neighbors = 10, n_jobs=-1)
 
+start = time.time()
 #print("Fitting...")
 model.fit(train_images, train_labels)
+end = time.time()
+print(f'Tempo knn: {end - start}')
 
 #print("Predicting...")
 y_pred = model.predict(test_images)
@@ -96,9 +102,7 @@ y_pred = model.predict(test_images)
 
 # Using the confusion matrix to print the accuracy of those predictions
 cm = confusion_matrix(y_true=test_labels,y_pred=np.round(y_pred))
-
-#print(f'\nAccuracy Score based on Confusion Matrix (KNN): {(cm.trace()/cm.sum())*100}%')
-cmKNN=confusion_matrix(y_true=test_labels,y_pred=np.round(y_pred))
+print(f'\nAccuracy Score based on Confusion Matrix (KNN): {(cm.trace()/cm.sum())*100}%')
 
 #print('\nClassification Report:')
 #print(classification_report(test_labels, y_pred))
@@ -128,8 +132,11 @@ test_images = sc.transform(test_images)
 
 classifier = GaussianNB()
 
+start = time.time()
 #print("Fitting...")
 classifier.fit(train_images, train_labels)
+end = time.time()
+print(f'Tempo Naive Bayes: {end - start}')
 
 #print("Predicting...")
 y_pred = classifier.predict(test_images)
@@ -138,7 +145,7 @@ y_pred = classifier.predict(test_images)
 
 # Using the confusion matrix to print the accuracy of those predictions
 cm = confusion_matrix(y_true=test_labels,y_pred=np.round(y_pred))
-#print(f'\nAccuracy Score Confusion Matrix (N-Bayes): {(cm.trace()/cm.sum())*100}%')
+print(f'\nAccuracy Score Confusion Matrix (N-Bayes): {(cm.trace()/cm.sum())*100}%')
 
 #print('\nClassification Report:')
 #print(classification_report(test_labels, y_pred))
@@ -163,8 +170,11 @@ from sklearn.svm import SVC
 # print("Evaluating SVM...")
 classifier = SVC(kernel='rbf')  # Creating a SVM Classifier
 
+start = time.time()
 # print("Fitting...")
 classifier.fit(train_images, train_labels)  # Model training with training set
+end = time.time()
+print(f'Tempo SVM: {end - start}')
 
 # print("Predicting...")
 y_pred = classifier.predict(test_images) # Model predicting
@@ -173,7 +183,7 @@ y_pred = classifier.predict(test_images) # Model predicting
 
 # Using the confusion matrix to print the accuracy of those predictions
 cm = confusion_matrix(y_true=test_labels,y_pred=np.round(y_pred))
-# print(f'\nAccuracy Score Confusion Matrix (SVM): {(cm.trace()/cm.sum())*100}%')
+print(f'\nAccuracy Score Confusion Matrix (SVM): {(cm.trace()/cm.sum())*100}%')
 
 # print('\nClassification report: ')
 # print(classification_report(test_labels, y_pred))
@@ -205,6 +215,8 @@ from utils.utils import load_data_tensorflow
 img = 150
 names = ['O', 'R']
 encode_name = {name: i for i, name in enumerate(names)}
+epochs = 30
+batch_size = 25
 
 # Loading the training and testing data
 # print("Pre-processing...")
@@ -257,7 +269,7 @@ model = Sequential([
 ])
 
 # Printing the model summary
-model.summary()
+# model.summary()
 
 # Saving the weights of the model
 model.save('model.h5')
@@ -270,7 +282,10 @@ model.load_weights('model.h5')
 
 
 # In[ ]:
-
+start = time.time()
+model.fit(x=train_images,y=train_labels,validation_split=0.3,epochs=epochs,batch_size=batch_size,steps_per_epoch=100,verbose=2)
+end = time.time()
+print(f'Tempo Tensor Flow: {end - start}')
 
 # print("Predicting...")
 y_pred = model.predict(test_images)
@@ -279,7 +294,7 @@ y_pred = model.predict(test_images)
 
 # Using the confusion matrix to print the accuracy of those predictions
 cm = confusion_matrix(y_true=test_labels, y_pred=np.round(y_pred))
-# print(f'\nAccuracy Score based on Confusion Matrix (TF): {(cm.trace() / cm.sum()) * 100}%')
+print(f'\nAccuracy Score based on Confusion Matrix (TF): {(cm.trace() / cm.sum()) * 100}%')
 
 scores = cross_val_score(model, train_images, train_labels, cv=10)
 print(f'TensorFlow Cross-validation score: {scores.mean()}')
