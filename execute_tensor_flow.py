@@ -71,7 +71,9 @@ model.compile(optimizer='adam',
               loss=SparseCategoricalCrossentropy(from_logits=True),
               metrics=['accuracy'])
 
-history = model.fit(train_images, train_labels, epochs=1, 
+model.load_weights('model.h5')
+
+history = model.fit(train_images, train_labels, epochs=3, 
                     validation_data=(test_images, test_labels))
 
 y_pred = model.evaluate(test_images, test_labels, batch_size=128)
