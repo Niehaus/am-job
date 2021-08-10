@@ -20,6 +20,7 @@ from utils.utils import load_data_tensorflow
 from tensorflow.keras import datasets, layers, models
 from keras.losses import SparseCategoricalCrossentropy
 
+
 # Alterar dados do modelo.
 # Alterar algoritmo da predição.
 
@@ -34,6 +35,7 @@ def generate_model():
     model.add(layers.Dense(64, activation='relu'))
     model.add(layers.Dense(10))
     return model
+
 
 img = 150
 names = ['O', 'R']
@@ -73,7 +75,7 @@ model.compile(optimizer='adam',
 
 model.load_weights('model.h5')
 
-history = model.fit(train_images, train_labels, epochs=3, 
+history = model.fit(train_images, train_labels, epochs=3,
                     validation_data=(test_images, test_labels))
 
 y_pred = model.evaluate(test_images, test_labels, batch_size=128)
