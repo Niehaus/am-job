@@ -10,19 +10,15 @@ import tqdm
 import random
 from sklearn.utils import shuffle
 import matplotlib.pyplot as plt
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.optimizers import Adam, SGD
 from sklearn.utils import shuffle
 from tensorflow.keras.layers import MaxPool2D
 from tensorflow.keras.layers import Dense, Conv2D, Flatten
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import cross_val_score
 from utils.utils import load_data_tensorflow
-from tensorflow.keras import datasets, layers, models
+from tensorflow.keras import datasets, layers, models, callbacks
 from keras.losses import SparseCategoricalCrossentropy
-
-
-# Alterar dados do modelo.
-# Alterar algoritmo da predição.
 
 def generate_model():
     model = models.Sequential(name='CNN-WASTE-CLASSIFICATION')
@@ -40,7 +36,7 @@ def generate_model():
 img = 150
 names = ['O', 'R']
 encode_name = {name: i for i, name in enumerate(names)}
-epochs = 2
+epochs = 10
 batch_size = 25
 
 (train_images, train_labels), (test_images, test_labels) = load_data_tensorflow()
@@ -69,18 +65,27 @@ model.save('model.h5')
     )
 
 """
-model.compile(optimizer='adam',
-              loss=SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['accuracy'])
+callback = callbacks.EarlyStopping(monitor='loss', patience=3)
+# model.compile(optimizer='adam',
+#               loss=SparseCategoricalCrossentropy(from_logits=True),
+#               metrics=['accuracy'])
+
+model.compile(optimizer=Adam(lr=0.0001), 
+    loss='binary_crossentropy', 
+    metrics=['accuracy'])
 
 model.load_weights('model.h5')
 
-history = model.fit(train_images, train_labels, epochs=3,
-                    validation_data=(test_images, test_labels))
+history = model.fit(train_images, 
+    train_labels, 
+    epochs=epochs, 
+    callbacks=callback,
+    validation_data=(test_images, test_labels))
 
 y_pred = model.evaluate(test_images, test_labels, batch_size=128)
 print("test loss, test acc:", y_pred)
 
+print(f"{len(history.history['loss'])} - epochs utilizadas")
 # print(history.history['accuracy'] + 'Acurácia de Treino')
 # print(history.history['val_accuracy'] + 'Acurácia de Validação')
 # print(history.history['loss'] + 'Perda de Treino')
